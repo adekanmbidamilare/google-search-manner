@@ -38,7 +38,7 @@ if(isset($_POST['search'])){
    union all
     (SELECT * FROM catone WHERE book LIKE '%". $searchq[0]. "%' AND book LIKE '%". $searchq[1] . "%' OR author LIKE '%". $searchq. "%' OR file LIKE '%". $searchq. "%')
    union all
-    (SELECT * FROM cattwo WHERE book LIKE '%". $searchq[0]. "%' AND book LIKE '%". $searchq[1] . "%' OR author LIKE '%". $searchq. "%' OR file LIKE '%". $searchq. "%') ORDER BY RAND()") or die("could not search!");
+    (SELECT * FROM cattwo WHERE book LIKE '%". $searchq[0]. "%' AND book LIKE '%". $searchq[1] . "%' OR author LIKE '%". $searchq. "%' OR file LIKE '%". $searchq. "%') ORDER BY book LIKE '%". $searchq. "%' DESC, author LIKE '%". $searchq. "%' DESC;") or die("could not search!");
      $count = mysqli_num_rows($query);
     if($count==0){
         $output= 'There was no output search result. Type only the book name OR only the author name....';
