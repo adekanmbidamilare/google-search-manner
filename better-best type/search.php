@@ -10,9 +10,9 @@ $output='';
 
 
 
-if(isset($_POST['search'])){ $search = $_POST['search'];
+if(isset($_GET['search'])){ $search = $_GET['search'];
     $search = preg_replace('#[^ 0-9a-z.-_/;]#i',"",$search);
-    $search_exploded=explode(" ",$search);
+    $search_exploded=explode(",",$search);
     foreach($search_exploded as $search_each)
     { $x=1;
         $x++;
@@ -23,33 +23,33 @@ if(isset($_POST['search'])){ $search = $_POST['search'];
 
 
 
-    $query = mysqli_query($conn,"(SELECT * FROM html WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%') 
+    $query = mysqli_query($conn,"(SELECT * FROM html WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%') 
    union all
-    (SELECT * FROM css WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM css WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM js WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM js WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM react WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM react WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM angular WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM angular WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM bootstrap WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM bootstrap WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM c WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM c WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM cplus WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM cplus WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM csharp WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM csharp WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM java WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM java WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM php WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM php WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM phyton WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM phyton WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM catone WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
+    (SELECT * FROM catone WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%')
    union all
-    (SELECT * FROM cattwo WHERE book LIKE '%". $search_each. "%' AND book LIKE '%". $search_each. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%') ORDER BY book LIKE '%". $search_each. "%' DESC, author LIKE '%". $search_each. "%' DESC;") or die("could not search!");
+    (SELECT * FROM cattwo WHERE book LIKE '%". $search_each[0]. "%' AND book LIKE '%". $search_each[1]. "%' OR author LIKE '%". $search_each. "%' OR file LIKE '%". $search_each. "%') ORDER BY book LIKE '%". $search_each. "%' DESC, author LIKE '%". $search_each. "%' DESC;") or die("could not search!");
      $count = mysqli_num_rows($query);
     if($count==0){
         $output= 'There was no output search result. Type only the book Rname OR only the author name....';
@@ -103,7 +103,7 @@ if(isset($_POST['search'])){ $search = $_POST['search'];
 <body>
 
     <div class="nav_header">
-        <div class="nav_title"><div class="inner-nav-title"><form action="search.php" method="POST" >B..<input type="text" name="search" placeholder="type booktitle..."><button type="submit" style="padding: 7px;background-color: deepskyblue;color:white;border-radius: 3px;border: none;">>></button></div></div>
+        <div class="nav_title"><div class="inner-nav-title"><form action="search.php" method="GET" >B..<input type="text" name="search" placeholder="type booktitle..."><button type="submit" style="padding: 7px;background-color: deepskyblue;color:white;border-radius: 3px;border: none;">>></button></div></div>
         </div>
         
         <div class="horizontal-nav">

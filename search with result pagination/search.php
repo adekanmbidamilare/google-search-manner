@@ -24,7 +24,7 @@ $page=0;
 <body>
 
     <div class="nav_header">
-        <div class="nav_title"><div class="inner-nav-title"><form action="search.php" method="GET" >B..<input book="search" type="text" id="search" name='search' placeholder="search.." style="width:100px;height:25px"><button type="submit" style="padding: 5px;background-color: silver;color:blue;margin-top:-10px;border-radius: 3px;border: none;">>></button></div></div>
+        <div class="nav_title"><div class="inner-nav-title"><form action="search.php" method="GET" >B..<input book="search" type="text" id="search" name='search' placeholder="search.." style="width:100px;height:25px"><button type="submit" style="padding: 5px;background-color: silver;color:blue;margin-top:-10px;border-radius: 3px;border: none;">>></button></form></div></div>
         </div>
         
     
@@ -86,10 +86,22 @@ $page=0;
                                                 <div style="height:200px;border:1px solid black;text-align:center;margin-right:10px;margin-left:10px">Advert!</div>
                                                
                                                 
-                                                <marquee style="background:linear-gradient(blue,black,aqua);color:white">....... Do you find it difficult to find your book among the row search result? Kindly take your time to look at the result OR..., You could search again by another relative keyword OR.. input the author's name alone into the search bar....OR check the bottom result, you could find it there....  </marquee><br/>
-<form method="GET" action="search.php">Keywords:<input value="EKSU MTH" name="cate" type="submit"><input value="Eloquent javascript" name="cate" style="margin-left:5px" type="submit"><input value="PHP textbooks" style="margin-left:3px" name="cate" type="submit"></form>
-                                                <p class="welcome-section2"  style="overflow:auto">    <center><b>BOOK </b><b> >> </b><b> AUTHOR </b><b> >> </b><b> FILE</b></center>
+                                                <marquee style="background:linear-gradient(blue,black,aqua);color:white;font-weight:bold">....... Do you find it difficult to find your book among the row search result? Kindly take your time to look at the result OR..., You could search again by another relative keyword OR.. input the author's name alone into the search bar....OR check the bottom result, you could find it there....  </marquee><br/>
+<form method="GET" action="search.php">Common Keywords:<input value="EKSU MTH" name="cate" type="submit"><input value="Eloquent javascript" name="cate" style="margin-left:5px" type="submit"><input value="PHP textbooks" style="margin-left:3px" name="cate" type="submit"></form>
+                                                <p class="welcome-section2"  style="overflow:auto">  
+                                                <?php if(isset($_GET['search'])) {$sq = $_GET['search']; echo "You search for: <b style='color:red'> $sq </b>";}?>
                                                 
+                                                <table class="table table-bordered">
+    <thead>
+   <tr>
+    <th><font face="comic sans ms">BOOK</font></th>
+    <th><font face="comic sans ms">AUTHOR </font></th>
+	<th><font face="comic sans ms">Download Files </font></th>
+  </tr>
+ 
+</thead>
+  <tbody> 
+                                                                                         
 <?php
 
 if(!isset($_GET["page"])){$page=1;}
@@ -97,7 +109,7 @@ if(!isset($_GET["page"])){$page=1;}
 if(isset($_GET['cate'])){ 
 $cate=$_GET["cate"];
     $searchqq = $_GET['cate'];
-    $start_from=($page-1)*5;
+    $start_from=($page-1)*10;
     
     $range=10;
     if(!isset($searchqq[0])) $searchqq[0]='NULL';
@@ -148,16 +160,17 @@ $cate=$_GET["cate"];
       //  $aname = $row['author'];
        // $fname = $row['file'];
        // $id = $row['id']; 
-        //echo "<table align=center border=0> 
-        //<tr border=0 style='margin:3px'><td style='background-color:black;color:white;padding:7px' colspan=70 border=0>$bname</td>
-        //<td style='background-color:black;color:white;padding:7px' colspan=70 border=0>$aname</td>
-        //<td border=0 style='background-color:Deepskyblue;border-radius:10px;padding:7px'><a title='Click here to download in file.' 
+        //echo "<tr>";
+        //echo "<td align=center style='background-color:black;color:white;padding:7px' colspan=70 border=0>$bname</td>";
+        //echo "<td align=center style='background-color:black;color:white;padding:7px' colspan=70 border=0>$aname</td>";
+        //echo "<td align=center border=0 style='background-color:Deepskyblue;border-radius:10px;padding:7px'><a title='Click here to download in file.' 
            //                     href='{$row['file']}'> download </a>
-         //   </td></tr></table>";
+         //   </td>";
+         //echo "</tr>";
             
   //  }
 
-     $start_from;
+     
 
     
     $query = mysqli_query($conn,"(SELECT * FROM html WHERE book LIKE '%". $searchqq[0]. "%' AND book LIKE '%". $searchqq[1]. "%' OR author LIKE '%". $searchqq. "%' OR file LIKE '%". $searchqq. "%') 
@@ -192,12 +205,15 @@ $cate=$_GET["cate"];
         $aname = $row['author'];
         $fname = $row['file'];
         $id = $row['id']; 
-        echo "<table align=center border=1> 
-        <tr border=0 style='margin:3px'><td style='background-color:black;color:white;padding:7px' colspan=70 border=0>$bname</td>
-        <td style='background-color:gray;color:white;padding:7px' colspan=70 border=0>$aname</td>
-        <td border=0 style='background-color:Deepskyblue;border-radius:10px;padding:7px'><a title='Click here to download in file.' 
+        echo " 
+        <tr>";
+        echo "<td align=center style='background-color:black;color:white;padding:7px' colspan=70 border=0>$bname</td>";
+        echo "<td align=center style='background-color:gray;color:white;padding:7px' colspan=70 border=0>$aname</td>";
+        echo "<td align=center border=0 style='background-color:Deepskyblue;border-radius:10px;padding:7px'><a title='Click here to download in file.' 
                                 href='{$row['file']}'> download </a>
-            </td></tr></table>";
+            </td>";
+            echo "</tr>";
+            
     }
 ?>
 
@@ -210,15 +226,15 @@ $cate=$_GET["cate"];
 <!-- line 23to30 at 4:59-->
 <?php }
 else if(isset($_GET['search'])){ $searchq = $_GET['search'];
-    $back=$_GET['search'];
- $searchq = $_GET['search'];
+    $back=trim($_GET['search']);
+ $searchq = trim($_GET['search']);
    
-    $start_from=($page-1)*5;
+    $start_from=($page-1)*10;
 
     $range=10;
     if(!isset($searchq[0])) $searchq[0]='NULL';
     if(!isset($searchq[1])) $searchq[1]='NULL';
-    $searchq=explode(" ", $searchq);
+    $searchq=explode(",", $searchq);
     
     $searchq=$searchq[0] AND "NULL" OR $searchq[1] ;
     $searchq = preg_replace("#[^ 0-9a-z.-_/;]#i","",$searchq);
@@ -272,24 +288,26 @@ $divide=ceil($total/$range);
       //  $aname = $row['author'];
       //  $fname = $row['file'];
        // $id = $row['id']; 
-       // echo "<table align=center border=0> 
-       // <tr border=0 style='margin:3px'><td style='background-color:black;color:white;padding:7px' colspan=70 border=0>$bname</td>
-       // <td style='background-color:black;color:white;padding:7px' colspan=70 border=0>$aname</td>
-       // <td border=0 style='background-color:Deepskyblue;border-radius:10px;padding:7px'><a title='Click here to download in file.' 
-          //                      href='{$row['file']}'> download </a>
-          //  </td></tr></table>";
+       //echo " 
+        //<tr>";
+        //echo "<td align=center style='background-color:black;color:white;padding:7px' colspan=70 border=0>$bname</td>";
+        //echo "<td align=center style='background-color:black;color:white;padding:7px' colspan=70 border=0>$aname</td>";
+        //echo "<td align=center border=0 style='background-color:Deepskyblue;border-radius:10px;padding:7px'><a title='Click here to download in file.' 
+           //                     href='{$row['file']}'> download </a>
+         //   </td>";
+         //echo "</tr>";
             
 } 
 if(isset($_GET['search'])){ $searchq = $_GET['search'];
-$back=$_GET['search'];
- $searchq = $_GET['search'];
+$back=trim($_GET['search']);
+ $searchq = trim($_GET['search']);
    
-    $start_from=($page-1)*5;
+    $start_from=($page-1)*10;
     
 $range=10;
     if(!isset($searchq[0])) $searchq[0]='NULL';
     if(!isset($searchq[1])) $searchq[1]='NULL';
-    $searchq=explode(" ", $searchq);
+    $searchq=explode(",", $searchq);
     
     $searchq=$searchq[0] AND "NULL" OR $searchq[1] ;
     $searchq = preg_replace("#[^ 0-9a-z.-_/;]#i","",$searchq);
@@ -332,32 +350,35 @@ while($row=mysqli_fetch_array($qw)){
     $aname = $row['author'];
     $fname = $row['file'];
     $id = $row['id']; 
-    echo "<table align=center border=1> 
-    <tr border=0 style='margin:3px'><td style='background-color:black;color:white;padding:7px' colspan=70 border=0>$bname</td>
-    <td style='background-color:gray;color:white;padding:7px' colspan=70 border=0>$aname</td>
-    <td border=0 style='background-color:silver;border-radius:5px;padding:7px'><a title='Click here to download in file.'  style='color:blue'
-                            href='{$row['file']}'> download </a>
-        </td></tr></table>";
-        
+    echo " 
+        <tr>";
+       echo "<td  align=center style='background-color:black;color:white;padding:7px' colspan=70 border=0>$bname</td>";
+        echo "<td align=center style='background-color:gray;color:white;padding:7px' colspan=70 border=0>$aname</td>";
+        echo "<td align=center border=0 style='background-color:Deepskyblue;border-radius:10px;padding:7px'><a title='Click here to download in file.' 
+                                href='{$row['file']}'> download </a>
+            </td>";
+            echo "</tr>";
+                   
 }}
 ?>
+</tbody>
+</table>	
 
-
-<ul style="display:flex;font-size:25;list-style:none">
+<ul style="font-size:20px;list-style:none;display:-ms-flexbox;display: flex ;flex-wrap: wrap;-ms-flex-wrap: wrap;">
 <?php
 if(isset($_GET["cate"])){
     for($i=1;$i<=$divide;$i++){
         if($i==$page)
 
-        echo '<li style="background-color:white;border:2px solid blue;margin:5px;padding:4px"><a style="background-color:white;color:black;border:2px solid blue;" href="search.php?cate='.$cate.'&page='.$i.'">'.$i.'</a></li>';
+        echo '<li style="background-color:white;border:2px solid blue;margin:5px;padding:4px;flex: 1%;-ms-flex: 1%"><a style="background-color:white;color:black;border:2px solid blue;" href="search.php?cate='.$cate.'&page='.$i.'">pg'.$i.'</a></li>';
         else
-        echo '<li style="background-color:white;color:black;border:2px solid blue;margin:5px;padding:4px"><a style="background-color:white;color:black;border:2px solid blue;" href="search.php?cate='.$cate.'&page='.$i.'">'.$i.'</a></li>';
+        echo '<li style="background-color:white;color:black;border:2px solid blue;margin:5px;padding:4px;flex: 1%;-ms-flex: 1%"><a style="background-color:white;color:black;border:2px solid blue;" href="search.php?cate='.$cate.'&page='.$i.'">pg'.$i.'</a></li>';
     }
 }else if(isset($_GET["search"])){$searchq=$_GET['search'];
     for($i=1;$i<=$divide;$i++){if($i==$page)
-        echo '<li style="margin:5px;padding:4px"><a style="background-color:white;color:black;border:2px solid blue;" href="search.php?search='.$searchq.'&page='.$i.'">'.$i.'</a></li>';
+        echo '<li style="margin:5px;padding:4px;flex: 1%;-ms-flex: 1%"><a style="background-color:white;color:black;border:2px solid blue;" href="search.php?search='.$searchq.'&page='.$i.'">pg'.$i.'</a></li>';
         else
-        echo '<li style="background-color:white;color:black;border:2px solid blue;margin:5px;padding:4px"><a style="background-color:white;color:black;border:2px solid blue;" href="search.php?search='.$searchq.'&page='.$i.'">'.$i.'</a></li>';
+        echo '<li style="background-color:white;color:black;border:2px solid blue;margin:5px;padding:4px;flex: 1%;-ms-flex: 1%"><a style="background-color:white;color:black;border:2px solid blue;" href="search.php?search='.$searchq.'&page='.$i.'">pg'.$i.'</a></li>';
     }
 }
 ?>
